@@ -39,10 +39,10 @@ A continuación se presentan algunas consultas útiles que puedes realizar en es
 
 
 ```sql
-SELECT medicos.nombre, COUNT(consultas.id_consulta) AS total_pacientes
-FROM consultas
-INNER JOIN medicos ON consultas.medicos_id_medico = medicos.id_medico
-GROUP BY medicos.nombre;
+    SELECT medicos.nombre, COUNT(consultas.id_consulta) AS total_pacientes
+    FROM consultas
+    INNER JOIN medicos ON consultas.medicos_id_medico = medicos.id_medico
+    GROUP BY medicos.nombre;
 
 ```
 
@@ -50,10 +50,12 @@ GROUP BY medicos.nombre;
 
 2. **Total de días de vacaciones planificadas y disfrutadas por cada empleado**
 
-
-
 ```sql
-
+    SELECT empleados.nombre, 
+       SUM(DATEDIFF(vacaciones.fecha_fin, vacaciones.fecha_inicio)) AS total_dias_vacaciones
+    FROM vacaciones
+    INNER JOIN empleados ON vacaciones.empleados_id_empleado = empleados.id_empleado
+    GROUP BY empleados.nombre;
 
 
 ```
@@ -65,7 +67,13 @@ GROUP BY medicos.nombre;
 
 
 ```sql
-
+    SELECT medicos.nombre, 
+    SUM(TIMESTAMPDIFF(HOUR, consultas.hora_inicio, consultas.hora_fin)) AS horas_totales
+    FROM consultas
+    INNER JOIN medicos ON consultas.medicos_id_medico = medicos.id_medico
+    GROUP BY medicos.nombre
+    ORDER BY horas_totales DESC
+    LIMIT 1;
 
 
 ```
@@ -77,9 +85,9 @@ GROUP BY medicos.nombre;
 
 
 ```sql
-
-
-
+    SELECT sustitutos_medicos.nombre, COUNT(*) AS total_sustituciones
+    FROM sustitutos_medicos
+    GROUP BY sustitutos_medicos.nombre;
 ```
 
 
@@ -89,8 +97,9 @@ GROUP BY medicos.nombre;
 
 
 ```sql
-
-
+    SELECT COUNT(DISTINCT medicos_id_medico) AS medicos_en_sustitucion
+    FROM sustitutos_medicos
+    WHERE fecha_fin IS NULL OR fecha_fin > CURDATE();
 
 ```
 
@@ -99,8 +108,12 @@ GROUP BY medicos.nombre;
 6. **Horas totales de consulta por médico por día de la semana**
 
 
-
 ```sql
+    SELECT medicos.nombre, DAYNAME(consultas.fecha) AS dia_semana,
+    SUM(TIMESTAMPDIFF(HOUR, consultas.hora_inicio, consultas.hora_fin)) AS horas_totales
+    FROM consultas
+    INNER JOIN medicos ON consultas.medicos_id_medico = medicos.id_medico
+    GROUP BY medicos.nombre, dia_semana;
 
 
 
@@ -114,6 +127,12 @@ GROUP BY medicos.nombre;
 
 ```sql
 
+    SELECT medicos.nombre, COUNT(consultas.id_consulta) AS total_pacientes
+    FROM consultas
+    INNER JOIN medicos ON consultas.medicos_id_medico = medicos.id_medico
+    GROUP BY medicos.nombre
+    ORDER BY total_pacientes DESC
+    LIMIT 1;
 
 
 ```
@@ -126,6 +145,12 @@ GROUP BY medicos.nombre;
 
 ```sql
 
+    SELECT empleados.nombre, 
+    SUM(DATEDIFF(vacaciones.fecha_fin, vacaciones.fecha_inicio)) AS total_dias_vacaciones
+    FROM vacaciones
+    INNER JOIN empleados ON vacaciones.empleados_id_empleado = empleados.id_empleado
+    GROUP BY empleados.nombre
+    HAVING total_dias_vacaciones > 10;
 
 
 ```
