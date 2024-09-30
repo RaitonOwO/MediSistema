@@ -1,4 +1,4 @@
-# 🎮 MediSistema 📊
+# 🚑 MediSistema 📊
 
 Este proyecto consiste en una base de datos relacional que gestiona información sobre campeones, objetos, jugadores, partidas y más, relacionados con el videojuego **League of Legends**. La base de datos está diseñada en MySQL y contiene varias tablas interrelacionadas para almacenar datos importantes sobre el juego y su ecosistema.
 
