@@ -153,6 +153,7 @@ A continuación se presentan algunas consultas útiles que puedes realizar en es
     HAVING total_dias_vacaciones > 10;
 
 
+
 ```
 
 
