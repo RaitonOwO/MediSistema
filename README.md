@@ -27,8 +27,7 @@ La base de datos está compuesta por las siguientes tablas:
 4. Insertar los datos necesarios en las tablas correspondientes.
 
 ## 📈 Diagrama EER
-A continuacion veran el diagrama EER sobre la base de datos 
-![Diagrama EER](Diagrama_EER.jfif)
+![Diagrama EER](diagrama_EER_MediSistema.png)
 
 
 ## 📝 Consultas SQL Documentadas
